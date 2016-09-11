@@ -1,0 +1,10 @@
+- name: Clone .tmux.conf
+  git:
+    repo: https://gist.github.com/52538cb87599ec98df4af8856d329b6e.git
+    dest: "{{ config_dotfiles_dir }}/tmuxconf"
+
+- name: Link .tmux.conf
+  file:
+    src: "{{ config_dotfiles_dir }}/tmuxconf/.tmux.conf"
+    dest: "{{ config_home_user }}/.tmux.conf"
+    state: link

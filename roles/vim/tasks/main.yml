@@ -1,0 +1,18 @@
+- name: Check ~/.vim
+  stat: path="{{ config_home_user }}/.vim"
+  register: vimdir
+  
+- name: Clone vimrc
+  git:
+    repo: "{{ config_repository }}/vim.d.git"
+    dest: "{{ config_home_user }}/.vim"
+    recursive: true
+  when: not vimdir.stat.exists
+
+- name: Upgrade vim-plug to latest version
+  command: vim +PlugUpgrade +qall
+  ignore_errors: yes
+  
+- name: Install vim plugins
+  command: vim +PlugInstall +qall
+  ignore_errors: yes

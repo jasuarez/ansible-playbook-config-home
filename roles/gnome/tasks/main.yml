@@ -1,0 +1,8 @@
+- name: Clone GNOME jasuarez theme
+  git:
+    repo: "{{ config_repository }}/gnome-theme"
+    dest: "{{ config_home_user }}/.themes/jasuarez"
+
+- name: Set GNOME jasuarez theme
+  command: gsettings set org.gnome.shell.extensions.user-theme name 'jasuarez'
+  ignore_errors: yes

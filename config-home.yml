@@ -1,0 +1,10 @@
+- name: Set up home dir
+  hosts: all
+  roles:
+    - vim
+    - emacs
+    - bash
+    - scripts
+    - gnome
+    - git
+    - tmux

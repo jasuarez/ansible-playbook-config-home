@@ -1,0 +1,31 @@
+- name: Check ~/.emacs.d
+  stat: path="{{ config_home_user }}/.emacs.d"
+  register: emacsdir
+  
+- name: Clone emacs.d
+  git:
+    repo: "{{ config_repository }}/emacs.d.git"
+    dest: "{{ config_home_user }}/.emacs.d"
+    recursive: true
+  when: not emacsdir.stat.exists
+
+- name: Search emacs byte-compiled (*.elc) files
+  find:
+    paths: "{{config_home_user }}/.emacs.d"
+    patterns: "*.elc"
+    recurse: true
+  register: elc
+
+- name: Remove emacs byte-compiled (*.elc) files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ elc.files }}"
+
+- name: Recompile emacs lisp files
+  command: emacs -batch -eval '(byte-recompile-directory "{{ config_home_user }}/.emacs.d" 0)'
+  ignore_errors: yes
+  
+- name: Install emacs plugins
+  command: emacs -batch -u ubuntu -f package-utils-upgrade-all
+  ignore_errors: yes

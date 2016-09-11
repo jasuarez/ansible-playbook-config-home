@@ -1,0 +1,5 @@
+- name: Clone scripts
+  git:
+    repo: "{{ config_repository }}/scripts"
+    dest: "{{ config_home_user }}/.local/bin"
+    recursive: true

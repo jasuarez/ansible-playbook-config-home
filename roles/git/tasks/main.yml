@@ -1,0 +1,10 @@
+- name: Clone .gitconfig
+  git:
+    repo: https://gist.github.com/8a6bc63be8e034ef23df.git
+    dest: "{{ config_dotfiles_dir }}/gitconfig"
+
+- name: Link .gitconfig
+  file:
+    src: "{{ config_dotfiles_dir }}/gitconfig/.gitconfig"
+    dest: "{{ config_home_user }}/.gitconfig"
+    state: link

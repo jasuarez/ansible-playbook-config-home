@@ -1,0 +1,16 @@
+- name: Clone bashrc.d
+  git:
+    repo: "{{ config_repository }}/bashrc.d.git"
+    dest: "{{ config_home_user }}/.bashrc.d"
+    recursive: true
+
+- name: Load ~/.bashrc.d/* files from .bashrc
+  blockinfile:
+    dest: "{{ config_home_user }}/.bashrc"
+    marker: '# {mark} PER-FILE CONFIGURATION'
+    block: |
+      if [ -d ~/.bashrc.d ]; then
+        for b in ~/.bashrc.d/*.sh ; do
+          source $b
+        done
+      fi
