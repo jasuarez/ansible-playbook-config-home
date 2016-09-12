@@ -1,5 +1,10 @@
+- name: Check ~/.local/bin
+  stat: path="{{ config_home_user }}/.local/bin"
+  register: localbindir
+
 - name: Clone scripts
   git:
     repo: "{{ config_repository }}/scripts"
     dest: "{{ config_home_user }}/.local/bin"
     recursive: true
+  when: not localbindir.stat.exists

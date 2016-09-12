@@ -1,8 +1,13 @@
+- name: Check ~/.bashrc.d
+  stat: path="{{ config_home_user }}/.bashrc.d"
+  register: bashrcdir
+
 - name: Clone bashrc.d
   git:
     repo: "{{ config_repository }}/bashrc.d.git"
     dest: "{{ config_home_user }}/.bashrc.d"
     recursive: true
+  when: not bashrcdir.stat.exists
 
 - name: Load ~/.bashrc.d/* files from .bashrc
   blockinfile:
@@ -14,3 +19,4 @@
           source $b
         done
       fi
+  when: not bashrcdir.stat.exists
