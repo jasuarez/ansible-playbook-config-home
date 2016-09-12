@@ -13,6 +13,6 @@
   command: vim +PlugUpgrade +qall
   ignore_errors: yes
   
-- name: Install vim plugins
-  command: vim +PlugInstall +qall
+- name: Install/update vim plugins
+  command: vim +PlugUpdate +qall
   ignore_errors: yes
