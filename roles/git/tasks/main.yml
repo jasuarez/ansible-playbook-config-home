@@ -5,6 +5,6 @@
 
 - name: Link .gitconfig
   file:
-    src: "{{ config_dotfiles_dir }}/gitconfig/.gitconfig"
+    src: "{{ config_dotfiles_dir }}/gitconfig/gitconfig"
     dest: "{{ config_home_user }}/.gitconfig"
     state: link
