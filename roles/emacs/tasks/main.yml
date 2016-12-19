@@ -27,5 +27,5 @@
   ignore_errors: yes
   
 - name: Install emacs plugins
-  command: emacs -batch -u ubuntu -f package-utils-upgrade-all
+  command: emacs -batch -u "{{ config_user }}" -f package-utils-upgrade-all
   ignore_errors: yes
