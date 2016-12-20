@@ -3,8 +3,13 @@
     repo: https://gist.github.com/8a6bc63be8e034ef23df.git
     dest: "{{ config_dotfiles_dir }}/gitconfig"
 
+- name: Check .gitconfig
+  stat: path="{{ config_home_user }}/.gitconfig"
+  register: gitconfig
+
 - name: Link .gitconfig
   file:
     src: "{{ config_dotfiles_dir }}/gitconfig/gitconfig"
     dest: "{{ config_home_user }}/.gitconfig"
     state: link
+  when: not gitconfig.stat.exists
