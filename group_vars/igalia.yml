@@ -1,0 +1,4 @@
+config_user: jasuarez
+config_home_user: "/home/igalia/{{ config_user }}"
+config_dotfiles_dir: "{{ config_home_user }}/Projects"
+config_repository: https://github.com/jasuarez
