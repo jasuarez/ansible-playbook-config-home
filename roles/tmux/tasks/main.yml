@@ -1,15 +1,19 @@
-- name: Clone .tmux.conf
-  git:
-    repo: https://gist.github.com/52538cb87599ec98df4af8856d329b6e.git
-    dest: "{{ config_dotfiles_dir }}/tmuxconf"
-
 - name: Check .tmuxconf
   stat: path="{{ config_home_user }}/.tmuxconf"
   register: tmuxconf
 
-- name: Link .tmux.conf
+- name: Check dotfiles
+  stat: path="{{ config_dotfiles_dir }}/dotfiles"
+
+- name: Clone dotfiles
+  git:
+    repo: https://github.com/jasuarez/dotfiles
+    dest: "{{ config_dotfiles_dir }}/dotfiles"
+  when: not tmuxcon.stat.exists
+
+  - name: Link .tmux.conf
   file:
-    src: "{{ config_dotfiles_dir }}/tmuxconf/tmux.conf"
+    src: "{{ config_dotfiles_dir }}/dotfiles/.tmux.conf"
     dest: "{{ config_home_user }}/.tmux.conf"
     state: link
   when: not tmuxconf.stat.exists
