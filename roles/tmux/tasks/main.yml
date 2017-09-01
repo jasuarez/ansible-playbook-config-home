@@ -1,5 +1,5 @@
-- name: Check .tmuxconf
-  stat: path="{{ config_home_user }}/.tmuxconf"
+- name: Check .tmux.conf
+  stat: path="{{ config_home_user }}/.tmux.conf"
   register: tmuxconf
 
 - name: Check dotfiles
