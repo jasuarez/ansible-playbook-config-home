@@ -11,7 +11,7 @@
     dest: "{{ config_dotfiles_dir }}/dotfiles"
   when: not tmuxcon.stat.exists
 
-  - name: Link .tmux.conf
+- name: Link .tmux.conf
   file:
     src: "{{ config_dotfiles_dir }}/dotfiles/.tmux.conf"
     dest: "{{ config_home_user }}/.tmux.conf"
