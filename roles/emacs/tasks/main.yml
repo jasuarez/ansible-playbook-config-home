@@ -9,19 +9,6 @@
     recursive: true
   when: not emacsdir.stat.exists
 
-- name: Search emacs byte-compiled (*.elc) files
-  find:
-    paths: "{{config_home_user }}/.emacs.d"
-    patterns: "*.elc"
-    recurse: true
-  register: elc
-
-- name: Remove emacs byte-compiled (*.elc) files
-  file:
-    path: "{{ item.path }}"
-    state: absent
-  with_items: "{{ elc.files }}"
-
 - name: Recompile emacs lisp files
   command: emacs -batch -eval '(byte-recompile-directory "{{ config_home_user }}/.emacs.d" 0)'
   ignore_errors: yes
