@@ -9,6 +9,7 @@
   git:
     repo: https://github.com/jasuarez/dotfiles
     dest: "{{ config_dotfiles_dir }}/dotfiles"
+    recursive: no
   when: not gitconfig.stat.exists
 
 - name: Link .gitconfig
