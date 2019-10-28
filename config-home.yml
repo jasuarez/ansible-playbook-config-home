@@ -5,6 +5,6 @@
     - emacs
     - bash
     - scripts
-    - gnome
+    # - gnome
     - git
     - tmux
