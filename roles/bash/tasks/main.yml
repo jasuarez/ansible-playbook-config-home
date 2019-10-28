@@ -2,12 +2,11 @@
   stat: path="{{ config_home_user }}/.bashrc.d"
   register: bashrcdir
 
-- name: Clone bashrc.d
+- name: Clone/Update bashrc.d
   git:
     repo: "{{ config_repository }}/bashrc.d.git"
     dest: "{{ config_home_user }}/.bashrc.d"
     recursive: true
-  when: not bashrcdir.stat.exists
 
 - name: Load ~/.bashrc.d/* files from .bashrc
   blockinfile:
