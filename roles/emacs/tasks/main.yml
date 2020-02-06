@@ -9,10 +9,3 @@
     recursive: true
   when: not emacsdir.stat.exists
 
-- name: Recompile emacs lisp files
-  command: emacs -batch -eval '(byte-recompile-directory "{{ config_home_user }}/.emacs.d" 0)'
-  ignore_errors: yes
-  
-- name: Install emacs plugins
-  command: emacs -batch -u "{{ config_user }}" -f package-utils-upgrade-all
-  ignore_errors: yes
