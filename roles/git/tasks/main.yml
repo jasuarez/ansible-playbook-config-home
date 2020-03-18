@@ -14,7 +14,7 @@
 
 - name: Link .gitconfig
   file:
-    src: "{{ config_dotfiles_dir }}/dotfiles/.gitconfig"
+    src: "{{ config_dotfiles_dir }}/dotfiles/gitconfig"
     dest: "{{ config_home_user }}/.gitconfig"
     state: link
   when: not gitconfig.stat.exists
