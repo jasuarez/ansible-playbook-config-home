@@ -3,3 +3,4 @@
     repo: "{{ config_repository }}/scripts"
     dest: "{{ config_home_user }}/.local/bin"
     recursive: true
+    version: "main"

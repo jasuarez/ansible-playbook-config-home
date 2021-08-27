@@ -6,6 +6,7 @@
   git:
     repo: "{{ config_repository }}/emacs.d.git"
     dest: "{{ config_home_user }}/.emacs.d"
+    version: "main"
     recursive: true
   when: not emacsdir.stat.exists
 

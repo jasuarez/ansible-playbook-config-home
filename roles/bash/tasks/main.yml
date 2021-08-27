@@ -6,6 +6,7 @@
   git:
     repo: "{{ config_repository }}/bashrc.d.git"
     dest: "{{ config_home_user }}/.bashrc.d"
+    version: "main"
     recursive: true
 
 - name: Load ~/.bashrc.d/* files from .bashrc
