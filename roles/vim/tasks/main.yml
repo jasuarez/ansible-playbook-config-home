@@ -1,11 +1,11 @@
 - name: Check ~/.vim
-  stat: path="{{ config_home_user }}/.vim"
+  stat: path="{{ config_user_home }}/.vim"
   register: vimdir
   
 - name: Clone vimrc
   git:
     repo: "{{ config_repository }}/vim.d.git"
-    dest: "{{ config_home_user }}/.vim"
+    dest: "{{ config_user_home }}/.vim"
     recursive: true
     version: "main"
   when: not vimdir.stat.exists

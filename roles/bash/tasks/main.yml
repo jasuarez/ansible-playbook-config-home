@@ -1,17 +1,17 @@
 - name: Check ~/.bashrc.d
-  stat: path="{{ config_home_user }}/.bashrc.d"
+  stat: path="{{ config_user_home }}/.bashrc.d"
   register: bashrcdir
 
 - name: Clone/Update bashrc.d
   git:
     repo: "{{ config_repository }}/bashrc.d.git"
-    dest: "{{ config_home_user }}/.bashrc.d"
+    dest: "{{ config_user_home }}/.bashrc.d"
     version: "main"
     recursive: true
 
 - name: Load ~/.bashrc.d/* files from .bashrc
   blockinfile:
-    dest: "{{ config_home_user }}/.bashrc"
+    dest: "{{ config_user_home }}/.bashrc"
     marker: '# {mark} PER-FILE CONFIGURATION'
     block: |
       if [ -d ~/.bashrc.d ]; then

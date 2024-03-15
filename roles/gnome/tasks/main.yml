@@ -1,7 +1,7 @@
 - name: Clone GNOME jasuarez theme
   git:
     repo: "{{ config_repository }}/gnome-theme"
-    dest: "{{ config_home_user }}/.themes/jasuarez"
+    dest: "{{ config_user_home }}/.themes/jasuarez"
     version: "main"
 
 - name: Set GNOME jasuarez theme

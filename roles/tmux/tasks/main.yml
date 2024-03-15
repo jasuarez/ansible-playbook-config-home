@@ -1,5 +1,5 @@
 - name: Check .tmux.conf
-  stat: path="{{ config_home_user }}/.tmux.conf"
+  stat: path="{{ config_user_home }}/.tmux.conf"
   register: tmuxconf
 
 - name: Check dotfiles
@@ -16,6 +16,6 @@
 - name: Link .tmux.conf
   file:
     src: "{{ config_dotfiles_dir }}/dotfiles/tmux.conf"
-    dest: "{{ config_home_user }}/.tmux.conf"
+    dest: "{{ config_user_home }}/.tmux.conf"
     state: link
   when: not tmuxconf.stat.exists

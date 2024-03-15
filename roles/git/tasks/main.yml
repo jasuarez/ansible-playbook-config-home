@@ -1,5 +1,5 @@
 - name: Check .gitconfig
-  stat: path="{{ config_home_user }}/.gitconfig"
+  stat: path="{{ config_user_home }}/.gitconfig"
   register: gitconfig
 
 - name: Check dotfiles
@@ -16,6 +16,6 @@
 - name: Link .gitconfig
   file:
     src: "{{ config_dotfiles_dir }}/dotfiles/gitconfig"
-    dest: "{{ config_home_user }}/.gitconfig"
+    dest: "{{ config_user_home }}/.gitconfig"
     state: link
   when: not gitconfig.stat.exists
