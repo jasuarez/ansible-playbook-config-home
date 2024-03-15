@@ -1,7 +1,7 @@
 - name: Check ~/.vim
   stat: path="{{ config_user_home }}/.vim"
   register: vimdir
-  
+
 - name: Clone vimrc
   git:
     repo: "{{ config_repository }}/vim.d.git"
@@ -13,7 +13,7 @@
 - name: Upgrade vim-plug to latest version
   command: vim +PlugUpgrade +qall
   ignore_errors: yes
-  
+
 - name: Install/update vim plugins
   command: vim +PlugUpdate +qall
   ignore_errors: yes
