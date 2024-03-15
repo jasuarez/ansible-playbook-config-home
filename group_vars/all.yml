@@ -1,4 +1,4 @@
 config_user: jasuarez
 config_user_home: "/home/{{ config_user }}"
-config_dotfiles_dir: "{{ config_user_home }}/Projects"
+config_user_dotfiles_dir: "{{ config_user_home }}/Projects"
 config_repository: https://github.com/jasuarez

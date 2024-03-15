@@ -3,19 +3,19 @@
   register: tmuxconf
 
 - name: Check dotfiles
-  stat: path="{{ config_dotfiles_dir }}/dotfiles"
+  stat: path="{{ config_user_dotfiles_dir }}/dotfiles"
 
 - name: Clone dotfiles
   git:
     repo: https://github.com/jasuarez/dotfiles
-    dest: "{{ config_dotfiles_dir }}/dotfiles"
+    dest: "{{ config_user_dotfiles_dir }}/dotfiles"
     recursive: no
     version: "main"
   when: not tmuxconf.stat.exists
 
 - name: Link .tmux.conf
   file:
-    src: "{{ config_dotfiles_dir }}/dotfiles/tmux.conf"
+    src: "{{ config_user_dotfiles_dir }}/dotfiles/tmux.conf"
     dest: "{{ config_user_home }}/.tmux.conf"
     state: link
   when: not tmuxconf.stat.exists
