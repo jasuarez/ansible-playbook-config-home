@@ -4,7 +4,7 @@
 
 - name: Clone vimrc
   git:
-    repo: "{{ config_repository }}/vim.d.git"
+    repo: "{{ config_user_repos }}/vim.d.git"
     dest: "{{ config_user_home }}/.vim"
     recursive: true
     version: "main"

@@ -1,6 +1,6 @@
 - name: Clone/Update scripts
   git:
-    repo: "{{ config_repository }}/scripts"
+    repo: "{{ config_user_repos }}/scripts"
     dest: "{{ config_user_home }}/.local/bin"
     recursive: true
     version: "main"

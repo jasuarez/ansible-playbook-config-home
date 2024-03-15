@@ -4,7 +4,7 @@
 
 - name: Clone emacs.d
   git:
-    repo: "{{ config_repository }}/emacs.d.git"
+    repo: "{{ config_user_repos }}/emacs.d.git"
     dest: "{{ config_user_home }}/.emacs.d"
     version: "main"
     recursive: true

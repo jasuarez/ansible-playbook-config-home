@@ -4,7 +4,7 @@
 
 - name: Clone/Update bashrc.d
   git:
-    repo: "{{ config_repository }}/bashrc.d.git"
+    repo: "{{ config_user_repos }}/bashrc.d.git"
     dest: "{{ config_user_home }}/.bashrc.d"
     version: "main"
     recursive: true
