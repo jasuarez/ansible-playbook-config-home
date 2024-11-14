@@ -1,0 +1,30 @@
+- name: Clone/Update dotfiles
+  ansible.builtin.git:
+    repo: "{{ config_user_repos }}/dotfiles.git"
+    dest: "{{ config_user_dotfiles_dir }}"
+    version: "main"
+    recursive: false
+
+- name: Check if ~/.gitconfig exits
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.gitconfig"
+  register: gitconfig
+
+- name: Link ~/.gitconfig
+  ansible.builtin.file:
+    src: "{{ config_user_dotfiles_dir }}/gitconfig"
+    dest: "{{ config_user_home }}/.gitconfig"
+    state: link
+  when: not gitconfig.stat.exists
+
+- name: Check if ~/.tmux.conf exits
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.tmux"
+  register: tmuxconf
+
+- name: Link ~/.tmux.conf
+  ansible.builtin.file:
+    src: "{{ config_user_dotfiles_dir }}/tmux.conf"
+    dest: "{{ config_user_home }}/.tmux.conf"
+    state: link
+  when: not tmuxconf.stat.exists

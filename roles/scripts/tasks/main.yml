@@ -1,6 +1,18 @@
+- name: Check if scripts dir exists
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.local/bin"
+  register: scriptsdir
+
+- name: Check if scripts dir is under version
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.local/bin/.git"
+  register: scriptsgitdir
+  when: scriptsdir.stat.exists
+
 - name: Clone/Update scripts
-  git:
+  ansible.builtin.git:
     repo: "{{ config_user_repos }}/scripts"
     dest: "{{ config_user_home }}/.local/bin"
-    recursive: true
     version: "main"
+    recursive: true
+  when: not scriptsdir.stat.exists or scriptsgitdir.stat.exists

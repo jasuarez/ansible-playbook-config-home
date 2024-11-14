@@ -1,16 +1,24 @@
-- name: Check ~/.bashrc.d
-  stat: path="{{ config_user_home }}/.bashrc.d"
+- name: Check if ~/.bashrc.d exists
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.bashrc.d"
   register: bashrcdir
 
-- name: Clone/Update bashrc.d
-  git:
+- name: Check if ~/.bashrc.d is under version
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.bashrc.d/.git"
+  register: bashrcgitdir
+  when: bashrcdir.stat.exists
+
+- name: Clone/Update ~/.bashrc.d
+  ansible.builtin.git:
     repo: "{{ config_user_repos }}/bashrc.d.git"
     dest: "{{ config_user_home }}/.bashrc.d"
     version: "main"
     recursive: true
+  when: not bashrcdir.stat.exists or bashrcgitdir.stat.exists
 
 - name: Load ~/.bashrc.d/* files from .bashrc
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: "{{ config_user_home }}/.bashrc"
     marker: '# {mark} PER-FILE CONFIGURATION'
     block: |

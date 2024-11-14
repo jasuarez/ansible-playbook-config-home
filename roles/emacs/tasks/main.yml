@@ -1,11 +1,18 @@
-- name: Check ~/.emacs.d
-  stat: path="{{ config_user_home }}/.emacs.d"
+- name: Check if ~/.emacs.d exists
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.emacs.d"
   register: emacsdir
 
-- name: Clone emacs.d
-  git:
+- name: Check if ~/.emacs.d is under version
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.emacs.d/.git"
+  register: emacsgitdir
+  when: emacsdir.stat.exists
+
+- name: Clone/Update ~/.emacs.d
+  ansible.builtin.git:
     repo: "{{ config_user_repos }}/emacs.d.git"
     dest: "{{ config_user_home }}/.emacs.d"
     version: "main"
     recursive: true
-  when: not emacsdir.stat.exists
+  when: not emacsdir.stat.exists or emacsgitdir.stat.exists

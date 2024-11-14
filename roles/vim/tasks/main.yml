@@ -1,19 +1,23 @@
-- name: Check ~/.vim
-  stat: path="{{ config_user_home }}/.vim"
+- name: Check if ~/.vim exists
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.vim"
   register: vimdir
 
-- name: Clone vimrc
-  git:
+- name: Check if ~/.vim is under version
+  ansible.builtin.stat:
+    path: "{{ config_user_home }}/.vim/.git"
+  register: vimgitdir
+  when: vimdir.stat.exists
+
+- name: Clone/update ~/.vim
+  ansible.builtin.git:
     repo: "{{ config_user_repos }}/vim.d.git"
     dest: "{{ config_user_home }}/.vim"
-    recursive: true
     version: "main"
-  when: not vimdir.stat.exists
-
-- name: Upgrade vim-plug to latest version
-  command: vim +PlugUpgrade +qall
-  ignore_errors: yes
+    recursive: true
+  when: not vimdir.stat.exists or vimgitdir.stat.exists
 
 - name: Install/update vim plugins
-  command: vim +PlugUpdate +qall
-  ignore_errors: yes
+  ansible.builtin.command: vim +PlugUpdate +qall
+  changed_when: false
+  ignore_errors: "{{ ansible_check_mode }}"
